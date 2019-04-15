@@ -34,6 +34,8 @@
             android:text="age" />
         <!--text for cat age-->
 
+
+
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

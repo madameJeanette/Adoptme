@@ -1,10 +1,12 @@
 package com.example.adoptme;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -91,4 +93,8 @@ public class MainActivity extends AppCompatActivity implements CatAdapter.OnItem
 
         startActivity(detailIntent); //start detail activity and pass the data with the intent package
     }
+
+
+
+
 }

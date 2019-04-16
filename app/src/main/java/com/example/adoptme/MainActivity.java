@@ -2,11 +2,16 @@ package com.example.adoptme;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -30,12 +35,16 @@ public class MainActivity extends AppCompatActivity implements CatAdapter.OnItem
     private CatAdapter mCatAdapter;
     private ArrayList<Cat> mCatList;
     private RequestQueue mRequestQueue;
+    private RelativeLayout RL;
+   // private LinearLayout LL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        RL = findViewById(R.id.relativeLayout);
+     //   LL = findViewById(R.id.linearLayout);
         mRecyclerView = findViewById(R.id.recycler_view); //find layout by id
         mRecyclerView.setHasFixedSize(true); //Set size to increase performance cuz we won' t change width and height
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -95,6 +104,42 @@ public class MainActivity extends AppCompatActivity implements CatAdapter.OnItem
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // onCreateOptionsMenu, use to inflate the menu
+        getMenuInflater().inflate(R.menu.main, menu);
+        // Return true to display  menu
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch (itemId) {
+
+            case R.id.action_settings:
+                Intent startSettingsActivity = new Intent(this, SettingsActivity.class);
+                startActivity(startSettingsActivity);
+                return true;
+
+
+        }
+        return super.onOptionsItemSelected(item);
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        if (SettingsActivity.CHANGE_BC(this)) {
+       //     LL.setBackgroundColor(ContextCompat.getColor(this, R.color.accent_cute));
+            RL.setBackgroundColor(ContextCompat.getColor(this, R.color.background_cute));
+
+        } else if (!(SettingsActivity.CHANGE_BC(this))) {
+        RL.setBackgroundColor(ContextCompat.getColor(this, R.color.background_color));
+        //    LL.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+        }
+        super.onResume();
+    }
 
 }

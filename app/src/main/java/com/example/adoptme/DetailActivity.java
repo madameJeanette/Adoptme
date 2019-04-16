@@ -35,14 +35,7 @@ public class DetailActivity extends AppCompatActivity {
         textViewAge.setText("Age " + ageCount);
     }
 
-    public void onClickOpenAdoptButton(View v) {
-        //  String that contains a URL ( make sure it starts with http:// or https:// )
-        String urlAsString = getString(R.string.adopt_url);
 
-        // call to openWebPage, passing in the URL String from the previous step
-        openWebPage(urlAsString);
-
-    }
 
 
     /**
@@ -66,6 +59,51 @@ public class DetailActivity extends AppCompatActivity {
         // Replace the Toast with a call to showMap, passing in the Uri from the previous step
         showMap(addressUri);
     }
+
+// Create a method called showMap with a Uri as the single parameter
+
+    /**
+     * This method will fire off an implicit Intent to view a location on a map.
+     * <p>
+     * When constructing implicit Intents, you can use either the setData method or specify the
+     * URI as the second parameter of the Intent's constructor,
+
+     *
+     * @param geoLocation The Uri representing the location that will be opened in the map
+     */
+    private void showMap(Uri geoLocation) {
+        //  Create an Intent with action type, Intent.ACTION_VIEW
+        /*
+         * Again, we create an Intent with the action, ACTION_VIEW because we want to VIEW the
+         * contents of this Uri.
+         */
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+
+        // Set the data of the Intent to the Uri passed into this method
+        /*
+         * Using setData to set the Uri of this Intent has the exact same affect as passing it in
+         * the Intent's constructor. This is simply an alternate way of doing this.
+         */
+        intent.setData(geoLocation);
+
+
+        // Verify that this Intent can be launched and then call startActivity
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+
+
+    }
+
+    public void onClickOpenAdoptButton(View v) {
+        //  String that contains a URL ( make sure it starts with http:// or https:// )
+        String urlAsString = getString(R.string.adopt_url);
+
+        // call to openWebPage, passing in the URL String from the previous step
+        openWebPage(urlAsString);
+
+    }
+
 
     private void openWebPage(String url) {
         // Use Uri.parse to parse the String into a Uri
@@ -92,36 +130,5 @@ public class DetailActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
-// Create a method called showMap with a Uri as the single parameter
 
-    /**
-     * This method will fire off an implicit Intent to view a location on a map.
-     * <p>
-     * When constructing implicit Intents, you can use either the setData method or specify the
-     * URI as the second parameter of the Intent's constructor,
-     * as I do in {@link #openWebPage(String)}
-     *
-     * @param geoLocation The Uri representing the location that will be opened in the map
-     */
-    private void showMap(Uri geoLocation) {
-        //  Create an Intent with action type, Intent.ACTION_VIEW
-        /*
-         * Again, we create an Intent with the action, ACTION_VIEW because we want to VIEW the
-         * contents of this Uri.
-         */
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-
-        // Set the data of the Intent to the Uri passed into this method
-        /*
-         * Using setData to set the Uri of this Intent has the exact same affect as passing it in
-         * the Intent's constructor. This is simply an alternate way of doing this.
-         */
-        intent.setData(geoLocation);
-
-
-        // Verify that this Intent can be launched and then call startActivity
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        }
-    }
 }

@@ -1,9 +1,29 @@
 <resources>
     <string name="app_name">Adopt Me</string>
 
-    <string name="adopt">Adopt now!</string>
+    <string name="adopt">Adopt me meow!</string>
     <string name="adopt_url">https://ikzoekbaas.dierenbescherming.nl/</string>
 
-    <string name="geo">Find our pet shelter!</string>
+    <string name="geo">Come see me!</string>
     <string name="geo_street">Groene Kruisweg 14a, 3281 KB Numansdorp</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Add string values for the list preference -->
+    <!-- Label for the color preference -->
+    <string name="pref_color_label">Color mode</string>
+
+    <!-- Label for Dark color preference -->
+
+    <string name="pref_color_label_white">Cute mode</string>
+
+
+    <!-- Key name for color preference in SharedPreferences -->
+    <string name="pref_color_key" translatable="false">color</string>
+
+
+    <!-- Value in SharedPreferences for light color option -->
+    <string name="pref_color_light_value" translatable="false">pink</string>
+
+
+    <string name="action_settings">Settings</string>
 </resources>

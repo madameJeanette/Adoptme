@@ -2,10 +2,11 @@
     <string name="app_name">Adopt Me</string>
 
     <string name="adopt">Adopt me meow!</string>
-    <string name="adopt_url">https://ikzoekbaas.dierenbescherming.nl/</string>
+    <string name="adopt_url">https://www.dierenstee.nl/contact/</string>
 
     <string name="geo">Come see me!</string>
     <string name="geo_street">Groene Kruisweg 14a, 3281 KB Numansdorp</string>
+
     <string name="title_activity_settings">Settings</string>
 
     <!-- Add string values for the list preference -->

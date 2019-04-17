@@ -1,10 +1,18 @@
 package com.example.adoptme;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +23,10 @@ import static com.example.adoptme.MainActivity.EXTRA_NAME;
 import static com.example.adoptme.MainActivity.EXTRA_URL;
 
 public class DetailActivity extends AppCompatActivity {
+    private Button button_location;
+    private TextView textview_location;
+    private LocationManager locationManager;
+    private LocationListener locationListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +45,73 @@ public class DetailActivity extends AppCompatActivity {
         Picasso.get().load(imageUrl).fit().centerInside().into(imageView); //center image in imageview
         textViewName.setText(catName);
         textViewAge.setText("Age " + ageCount);
+
+        button_location = (Button) findViewById(R.id.button_location);
+        textview_location = (TextView) findViewById(R.id.textView_location);
+
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) { //Is called whenever location is updated
+                textview_location.append("Coordinates: " + location.getLatitude() + " " + location.getLongitude()); //append layout and display coordinates
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) { //checks if the gps is turned of
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);//when off create intent to go to the options menu to turn gps on
+                startActivity(intent);
+            }
+        };
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.INTERNET}, 10);
+            return;
+
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+
+        } else {
+            configureButton();
+        }
     }
 
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 10:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    configureButton();
+                return;     //if the permission is granted then call configure button method
+
+        }
+
+    }
+
+    private void configureButton() {
+        button_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                locationManager.requestLocationUpdates("gps", 10000, 0, locationListener); //call location  updates when (provider, min Time in m/s, minDistance in m, locationListener)
+            }
+        });
+
+    }
 
 
     /**
@@ -67,7 +143,6 @@ public class DetailActivity extends AppCompatActivity {
      * <p>
      * When constructing implicit Intents, you can use either the setData method or specify the
      * URI as the second parameter of the Intent's constructor,
-
      *
      * @param geoLocation The Uri representing the location that will be opened in the map
      */

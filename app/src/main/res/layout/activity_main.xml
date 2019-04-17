@@ -5,8 +5,8 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/background_color">
+    android:background="@color/background_color"
+    tools:context=".MainActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -16,10 +16,6 @@
 
         />
 
-
-
-
-    <!--recycler view that takes up complete screen and has dark grey background to show the cards better-->
-
+   <!--recycler view that takes up complete screen and has dark grey background to show the cards better-->
 
 </RelativeLayout>

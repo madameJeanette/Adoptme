@@ -36,21 +36,46 @@
 
 
     <Button
-        android:id="@+id/adopt-button"
-        android:layout_width="144dp"
-        android:layout_height="wrap_content"
-        android:onClick="onClickOpenAdoptButton"
-        android:text="@string/adopt" />
-
-
-    <Button
         android:id="@+id/geo-button"
         android:layout_width="wrap_content"
         android:layout_height="52dp"
         android:onClick="onClickOpenAddressButton"
-        android:text="@string/geo" />
+        android:text="@string/geo"
+        android:background="@color/accent_cute"
+        android:textColor="@color/colorPrimaryDark"
+        android:padding="4dp"
+        android:layout_margin="4dp"
+        />
 
+    <Button
+        android:id="@+id/adopt-button"
+        android:layout_width="144dp"
+        android:layout_height="wrap_content"
+        android:onClick="onClickOpenAdoptButton"
+        android:text="@string/adopt"
+        android:background="@color/accent_cute"
+        android:textColor="@color/colorPrimaryDark"
+        android:padding="4dp"
+        android:layout_margin="4dp"
+        />
 
+    <Button
+        android:text="@string/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_location"
+        android:background="@color/accent_cute"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_margin="4dp"
 
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_location"
+        android:textColor="@color/colorPrimaryDark"
+
+        />
 
 </LinearLayout>

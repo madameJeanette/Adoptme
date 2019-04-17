@@ -1,7 +1,14 @@
 package com.example.adoptme;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,8 +17,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -36,7 +45,8 @@ public class MainActivity extends AppCompatActivity implements CatAdapter.OnItem
     private ArrayList<Cat> mCatList;
     private RequestQueue mRequestQueue;
     private RelativeLayout RL;
-   // private LinearLayout LL;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements CatAdapter.OnItem
         setContentView(R.layout.activity_main);
 
         RL = findViewById(R.id.relativeLayout);
-     //   LL = findViewById(R.id.linearLayout);
+        //   LL = findViewById(R.id.linearLayout);
         mRecyclerView = findViewById(R.id.recycler_view); //find layout by id
         mRecyclerView.setHasFixedSize(true); //Set size to increase performance cuz we won' t change width and height
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -53,10 +63,12 @@ public class MainActivity extends AppCompatActivity implements CatAdapter.OnItem
 
         mRequestQueue = Volley.newRequestQueue(this); //We get a new request queue where we can add our JSON request
         parseJSON(); //call method to parse JSON from request.
+
     }
 
+
     private void parseJSON() {
-        String url = "https://pixabay.com/api/?key=12207085-9fd874696dad2a370b4899558&q=kitten&image_type=photo";
+        String url = getString(R.string.url_string);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -132,12 +144,12 @@ public class MainActivity extends AppCompatActivity implements CatAdapter.OnItem
     @Override
     protected void onResume() {
         if (SettingsActivity.CHANGE_BC(this)) {
-       //     LL.setBackgroundColor(ContextCompat.getColor(this, R.color.accent_cute));
+            //     LL.setBackgroundColor(ContextCompat.getColor(this, R.color.accent_cute));
             RL.setBackgroundColor(ContextCompat.getColor(this, R.color.background_cute));
 
         } else if (!(SettingsActivity.CHANGE_BC(this))) {
-        RL.setBackgroundColor(ContextCompat.getColor(this, R.color.background_color));
-        //    LL.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+            RL.setBackgroundColor(ContextCompat.getColor(this, R.color.background_color));
+            //    LL.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
         }
         super.onResume();
     }

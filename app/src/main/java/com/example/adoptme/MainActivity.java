@@ -1,14 +1,5 @@
 package com.example.adoptme;
-
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.net.Uri;
-import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,11 +7,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
+
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -36,7 +25,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements CatAdapter.OnItemClickListener {
-    public static final String EXTRA_URL = "imageUrl";
+    public static final String EXTRA_URL = "imageUrl";  //constant
     public static final String EXTRA_NAME = "catName";
     public static final String EXTRA_AGE = "ageCount";
 
@@ -87,7 +76,8 @@ public class MainActivity extends AppCompatActivity implements CatAdapter.OnItem
                             }
 
                             mCatAdapter = new CatAdapter(MainActivity.this, mCatList);
-                            mRecyclerView.setAdapter(mCatAdapter); //this will take care of passing the json data into our catList adds it to the adapter and sets the adapter on the recyclerview.
+                            mRecyclerView.setAdapter(mCatAdapter); //this will take care of passing the json data into our catList
+                            // adds it to the adapter and sets the adapter on the recyclerview.
                             mCatAdapter.setOnItemClickListener(MainActivity.this); //click gets passed to the mainactivity
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -125,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements CatAdapter.OnItem
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {//if menu item selected use settings intent w/ settings activity
         int itemId = item.getItemId();
         switch (itemId) {
 
@@ -144,12 +134,12 @@ public class MainActivity extends AppCompatActivity implements CatAdapter.OnItem
     @Override
     protected void onResume() {
         if (SettingsActivity.CHANGE_BC(this)) {
-            //     LL.setBackgroundColor(ContextCompat.getColor(this, R.color.accent_cute));
+         //if setting changed change background color
             RL.setBackgroundColor(ContextCompat.getColor(this, R.color.background_cute));
 
         } else if (!(SettingsActivity.CHANGE_BC(this))) {
             RL.setBackgroundColor(ContextCompat.getColor(this, R.color.background_color));
-            //    LL.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+
         }
         super.onResume();
     }
